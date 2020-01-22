@@ -1,6 +1,9 @@
 from django.shortcuts import render
 
+from .models import Student
+
+
 
 def hostel_home(request):
-	rooms = ['520','523','524','525']
-	return 	render(request, 'hostel/index.html', context={'rooms': rooms})
+	students = Student.objects.all()
+	return 	render(request, 'hostel/index.html', context={'students': students})
