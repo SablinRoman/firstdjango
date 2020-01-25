@@ -28,6 +28,5 @@ class Student(models.Model):
 	notation = models.TextField(db_index=True, blank=True, null=True)
 
 
-
 	def __str__(self):
-		return '{}'.format(self.name) 
+		return '{}'.format(self.name)

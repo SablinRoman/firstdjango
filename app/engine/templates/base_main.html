@@ -27,8 +27,14 @@
 		</span>
 	</div>
 </nav>
-{%block content%}
-My content
-{% endblock %}
+<div class="content container">
+	<div class="row">
+		<div class="col-md-10">
+			{% block number %}
+			
+			{% endblock %}
+		</div>
+	</div>
+</div>
 </body>
 </html>

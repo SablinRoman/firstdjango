@@ -1,10 +1,25 @@
 {%extends 'hostel/base_home.html'%}
 
+{%block number%}
+	<p>
+	Количество проживающих: {{number_of_residents}}
+	</p>
 
-{%block content%}
-{% for student in students %}
-<p>
-	{{student.name}}
-</p>
-{% endfor %}
+	<p>
+		Количество свободных мужских мест: {{num_of_free_place}}
+	</p>
+
+	<p>
+		Количество свободных женских мест: {{женское}}
+	</p>
+
+	<p>
+		Количество мест "занято": {{занято}}
+	</p>
+
+	<p>
+		Количество мест "пустое": {{пустоe}}
+	</p>
 {% endblock %}
+
+

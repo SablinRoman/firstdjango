@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import hostel_home
+from .views import number_of
 
 
 urlpatterns = [
-	path('', hostel_home),
+	path('', number_of),
 ]
