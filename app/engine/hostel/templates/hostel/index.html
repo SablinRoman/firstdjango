@@ -20,6 +20,20 @@
 	<p>
 		Количество мест "пустое": {{пустоe}}
 	</p>
+
+	{% for key, value in country.items %}
+		<p>
+			{{key}} : {{value}}
+		</p>
+	{% endfor %}
+
+
+	{% for key, value in faculty.items %}
+		<p>
+			{{key}} : {{value}}
+		</p>
+	{% endfor %}
+
 {% endblock %}
 
 

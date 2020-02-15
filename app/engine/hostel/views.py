@@ -6,14 +6,32 @@ from .service.stat import Statistics
 
 
 def number_of(request):
-	a = Statistics.places()
-	b = Statistics.stat_group()
-
-	a= Statistics.qwe
-	print(a)
+	county = Statistics.citizenship_sort()
+	faculty = Statistics.faculty_sort()
+	return render(request, 'hostel/index.html', context={'country': county, 'faculty': faculty})
 
 
 
-	return render(request, 'hostel/index.html', context=a)
 
 
+def cards(request):
+	rooms = Student.objects.all()
+	last_room = None
+	cards_dict = {}
+	name_list = []
+
+	for i in rooms:
+		if last_room == None:
+			last_room = i.room
+			
+
+		elif i.room == last_room:
+			name_list.append(i.name)
+		else:
+			cards_dict[last_room] = name_list
+			name_list = []
+			name_list.append(i.name)
+			last_room = i.room
+
+
+	return  render(request, 'hostel/cards.html', context={'cards' : cards_dict})

@@ -1,0 +1,23 @@
+{%extends 'hostel/base_cards.html'%}
+
+{%block cards%}
+{%for key, value in cards.items%}
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{key}}</h5>
+
+            {%for name in value%}
+              <p class="card-text">{{name}}</p>
+            {%endfor%}
+
+            <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{%endfor%}
+{% endblock %}

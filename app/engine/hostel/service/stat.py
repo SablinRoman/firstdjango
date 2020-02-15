@@ -3,50 +3,53 @@ from hostel.models import Student
 
 class Statistics():
 
-	qwe = Student.objects.filter(name__icontains= 'мужское').count()
-		
-	def free_man():
-		return Student.objects.filter(name__icontains= 'мужское').count()
+	all_count = Student.objects.all().count()
 
-	def free_women():
-		return Student.objects.filter(name__icontains= 'женское').count()
-	
-	def free():
-		return Student.objects.filter(name__icontains= 'занято').count()
-	
-	
-	def places():
+	male_places = Student.objects.filter(place_status__icontains= 'мужское').count()
+	female_places = Student.objects.filter(place_status__icontains= 'женское').count()
+	empty_place = Student.objects.filter(place_status__icontains= 'пусто').count()
+	save_places = Student.objects.filter(place_status__icontains= 'занято').count()
 
-		hostel_palces = {'number_of_residents': 0,'num_of_free_place': 0,'man': 0, 'women': 0, 'busy': 0, 'blank': 0}		
+	num_of_residents = all_count - male_places - female_places -  empty_place - save_places
+	all_free_places = male_places + female_places + empty_place + save_places
 
-		for key in hostel_palces.keys():
-			places = Student.objects.filter(name__icontains= key).count()
-			hostel_palces[key] = places
-			hostel_palces['num_of_free_place'] += places
-
-		hostel_palces['number_of_residents'] = Student.objects.all().count() - hostel_palces['num_of_free_place']
-		return hostel_palces
-
+	flurog_cert = num_of_residents - Student.objects.filter(fluorography__contains='+').count()
+	pedicul_cert = num_of_residents - Student.objects.filter(pediculosis__contains='+').count()
 
 
 	def citizenship_sort():
-		
-		hostel_palces = {'Количество проживающих': 0,'Количество свободных мест': 0,'мужское': 0, 'женское': 0, 'занято': 0, 'пустоe': 0}		
-		country = {'РФ': 0, 'Казахстан': 0}
+		country_dict = {'РФ':0, 'Казахстан':0}
 		students = Student.objects.all()
 
 		for student in students:
-
-			if student.name in hostel_palces.keys():
+			if student.name == '':
 				continue
 
 			else:
-				if student.citizenship in country.keys():
-					country[student.citizenship] += 1
+				if student.citizenship in country_dict.keys():
+					country_dict[student.citizenship] += 1
 				else :
-					country[student.citizenship] = 1
+					country_dict[student.citizenship] = 1
+		return country_dict
 
-	
+
+	def faculty_sort():
+		faculty_dict = {}
+		students = Student.objects.all()
+
+		for student in students:
+			if student.name == '':
+				continue
+
+			else:
+				if student.faculty in faculty_dict.keys():
+					faculty_dict[student.faculty] += 1
+				else :
+					faculty_dict[student.faculty] = 1
+		return faculty_dict
+
+
+
 	def stat_group():
 		students = Student.objects.all()
 		group_dict = {}
@@ -59,13 +62,3 @@ class Statistics():
 		print(group_dict.keys())
 
 
-	def medical_certificates():
-		
-		print(free_man())
-		flurog_cert = Student.objects.all().count() - Student.objects.filter(fluorography__icontains='+').count()
-		pedicul_cert = Student.objects.all().count() - Student.objects.filter(pediculosis__icontains='+').count()
-		print('|||||||||||||||||||||||||||||||||')
-		print(flurog_cert )
-		print()
-		print('|||||||||||||||||||||||||||||||||')
-		

@@ -1,8 +1,10 @@
 from django.db import models
 
+
 class Student(models.Model):
 
 	name = models.CharField(max_length=50, db_index=True)
+	place_status = models.CharField(max_length=25, db_index=True, default='пусто')
 
 	room = models.CharField(max_length=8, db_index=True, blank=True)
 

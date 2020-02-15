@@ -22,10 +22,20 @@ print('read function is started')
 
 i = int(input("Start row ="))
 print()
+
+status_list = ['мужское', 'женское', 'пусто', 'занято',]
 while sheet.cell(row=i, column=1).value != None:
 	student = Student()
+
 	student.room = sheet.cell(row= i, column= 1).value
-	student.name = sheet.cell(row= i, column= 2).value 
+
+	if sheet.cell(row= i, column= 2).value in status_list:
+		student.name = ''
+		student.place_status = sheet.cell(row= i, column= 2).value
+	else:
+		student.name = sheet.cell(row= i, column= 2).value
+		student.place_status = sheet.cell(row= i, column= 6).value
+
 	student.faculty = sheet.cell(row= i, column= 3).value
 	student.form_studies = sheet.cell(row= i, column= 4).value
 	student.group = sheet.cell(row= i, column= 5).value
