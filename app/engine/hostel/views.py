@@ -13,23 +13,32 @@ def number_of(request):
 
 
 
-
 def cards(request):
 	rooms = Student.objects.all()
+
 	last_room = None
 	cards_dict = {}
+	place_list = []
 	name_list = []
 
+
 	for i in rooms:
+
+		if i.place_status == 'мужское' or i.place_status == 'женское' or i.place_status == 'занято':
+			place_list.append(i.place_status)
+
+
 		if last_room == None:
 			last_room = i.room
-			
+			name_list.append(i.name)
+
 
 		elif i.room == last_room:
 			name_list.append(i.name)
 		else:
 			cards_dict[last_room] = name_list
-			name_list = []
+			print(place_list)
+			name_list = place_list = []
 			name_list.append(i.name)
 			last_room = i.room
 
