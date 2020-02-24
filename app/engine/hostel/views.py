@@ -6,9 +6,21 @@ from .service.stat import Statistics
 
 
 def number_of(request):
+	residents = Statistics.num_of_residents
+	male_places = Statistics.male_places
+	female_places  = Statistics.female_places
+	save_places = Statistics.save_places
+	empty_places= Statistics.empty_places
 	county = Statistics.citizenship_sort()
 	faculty = Statistics.faculty_sort()
-	return render(request, 'hostel/index.html', context={'country': county, 'faculty': faculty})
+	
+
+	return render(request, 'hostel/index.html', context={'residents' : residents,
+														'male_places' : male_places,
+														'female_places' : female_places,
+														'save_places' : save_places,
+														'empty_places' : empty_places,
+														'country': county, 'faculty': faculty})
 
 
 
