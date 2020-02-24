@@ -9,7 +9,7 @@ class Student(models.Model):
 	room = models.CharField(max_length=8, db_index=True, blank=True)
 
 	faculty = models.CharField(max_length=10, db_index=True, blank=True, null=True)
-	form_studies =models.CharField(max_length=10, db_index=True, blank=True, null=True)
+	form_studies = 	models.CharField(max_length=10, db_index=True, blank=True, null=True)
 	group = models.CharField(max_length=10, db_index=True, blank=True, null=True)
 	sex = models.CharField(max_length=2, db_index=True, blank=True, null=True)
 	mobile_number =	models.BigIntegerField(db_index=True, blank=True, null=True)

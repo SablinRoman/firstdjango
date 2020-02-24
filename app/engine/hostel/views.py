@@ -11,8 +11,11 @@ def number_of(request):
 	female_places  = Statistics.female_places
 	save_places = Statistics.save_places
 	empty_places= Statistics.empty_places
+
 	county = Statistics.citizenship_sort()
 	faculty = Statistics.faculty_sort()
+	form = Statistics.form_studies_sort()
+	reg = Statistics.registration_sort()
 	
 
 	return render(request, 'hostel/index.html', context={'residents' : residents,
@@ -21,7 +24,9 @@ def number_of(request):
 														'save_places' : save_places,
 														'empty_places' : empty_places,
 														'country': county, 
-														'faculty': faculty})
+														'faculty': faculty,
+														'form' : form,
+														'reg' : reg, })
 
 
 def cards(request):

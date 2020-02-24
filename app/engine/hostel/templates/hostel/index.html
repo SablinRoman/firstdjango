@@ -34,6 +34,13 @@
 		</p>
 	{% endfor %}
 
+	
+	{% for key, value in form.items %}
+		<p>
+			{{key}} : {{value}}
+		</p>
+	{% endfor %}
+	
 {% endblock %}
 
 
