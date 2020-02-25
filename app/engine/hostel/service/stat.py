@@ -58,15 +58,14 @@ class Statistics():
 		# Проблема с получением настоящей даты!
 	def registration_sort():
 		students = Student.objects.all()
-		date_now = datetime()
+		date_now = datetime.now().date()
 		registration_dict = {'Просроченных регистраций':0, 'Регистрация отсутствует':0}
 
 		for student in students:
-			print('=========')
-			print(student.registration)
-			print('=========')
 			if student.registration == None:
 				registration_dict['Регистрация отсутствует'] += 1
-			elif student.registration > date_now:
+			elif student.registration < date_now:
 				registration_dict['Просроченных регистраций'] += 1
+		return registration_dict
+				
 			

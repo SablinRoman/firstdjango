@@ -26,7 +26,7 @@ def number_of(request):
 														'country': county, 
 														'faculty': faculty,
 														'form' : form,
-														'reg' : reg, })
+														'reg': reg,})
 
 
 def cards(request):

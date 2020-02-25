@@ -1,23 +1,15 @@
 import openpyxl, sys, os
-
 import django
 
 wb = openpyxl.load_workbook('./Baza.xlsx')
 sheet = wb.get_sheet_by_name('Проживающие')
 
 
-
-
 project_dir = "/home/firtsdjango/app/engine/engine/"	#Путь до файла settings
 sys.path.append(project_dir)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','engine.settings') #Добавление переменной окуружения
-
-django.setup()		#?????????? ne ebu chto eto
-
+django.setup()
 from hostel.models import Student 	#Примечание: импорт не работает, если находться на верху
-
-
-print('read function is started')
 
 
 i = int(input("Start row ="))
