@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 
 class Student(models.Model):
@@ -29,6 +30,9 @@ class Student(models.Model):
 	date_of_issue = models.DateField(blank=True, null=True)	
 	notation = models.TextField(db_index=True, blank=True, null=True)
 
+	def get_absolute_url(self):
+		print('I am absolute!')
+		return reverse('student_detail_url', kwargs={'name' : self.name})
 
 	def __str__(self):
 		return '{}'.format(self.name)

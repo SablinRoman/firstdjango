@@ -10,7 +10,9 @@
             <h5 class="card-title">{{ key }}</h5>
 
             {%for name in value%}
-              <p class="card-text">{{ name }}</p>
+              <p>
+                <a class="card-text" href="{{name.get_absolute_url}}">{{ name }} </a>
+              </p>
             {%endfor%}
 
             <a href="#" class="btn btn-primary">Переход куда-нибудь</a>

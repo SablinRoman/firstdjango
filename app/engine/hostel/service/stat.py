@@ -55,7 +55,7 @@ class Statistics():
 				form_dict[student.form_studies] = 1
 		return form_dict
 
-		# Проблема с получением настоящей даты!
+
 	def registration_sort():
 		students = Student.objects.all()
 		date_now = datetime.now().date()

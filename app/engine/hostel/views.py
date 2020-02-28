@@ -58,3 +58,9 @@ def cards(request):
 	cards_dict[last_room] = content_list
 
 	return  render(request, 'hostel/cards.html', context={'cards' : cards_dict})
+
+
+def student_detail(request, name):
+	print('I am student_detail in view!')
+	student = Student.objects.all(name__iexact=name)
+	return render(request, 'hostel/student_detail.html', context={'student' : student})
