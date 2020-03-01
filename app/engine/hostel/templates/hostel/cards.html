@@ -1,25 +1,31 @@
 {%extends 'hostel/base_cards.html'%}
 
-{%block cards%}
-{%for key, value in cards.items%}
+{% block cards %}
+  {% for room in rooms_list %}
 
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ key }}</h5>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ room.room }}</h5>
+                {%for student in room%}
+                  {% if student.name == '' %}
+                  <p>
+                    <a class="card-text" href="#">{{ student.place_status }} </a>
+                  </p>
+                  {% else %}
+                    <p>
+                      <a class="card-text" href="#">{{ student.name }} </a>
 
-            {%for name in value%}
-              <p>
-                <a class="card-text" href="{{name.get_absolute_url}}">{{ name }} </a>
-              </p>
-            {%endfor%}
+                    </p>
+               {%endif%}
+                {%endfor%}
 
-            <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
+              <a href="#" class="btn btn-primary">Информация о комнате</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-{% endfor %}
+  {% endfor %}
 {% endblock %}

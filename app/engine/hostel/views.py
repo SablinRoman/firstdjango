@@ -31,36 +31,26 @@ def number_of(request):
 
 def cards(request):
 	rooms = Student.objects.all()
-	status_list = ['мужское', 'женское', 'занято', 'пусто']
-
 	last_room = None
-	cards_dict = {}
-	content_list = []
+	names_list = []
+	rooms_list = []
 
 	for i in rooms:
 		if last_room == None:
-			last_room = i.room 
-
+			last_room = i.room
 		if i.room == last_room:
-			if i.place_status in status_list:
-				content_list.append(i.place_status)
-			else:
-				content_list.append(i.name)
-
+			names_list.append(i)
 		else:
-			cards_dict[last_room] = content_list
-			last_room = i.room 
-			content_list = []
-			if i.place_status in status_list:
-				content_list.append(i.place_status)
-			else:
-				content_list.append(i.name)
-	cards_dict[last_room] = content_list
+			rooms_list.append(names_list)
+			last_room = i.room
+			names_list = []
+			names_list.append(i)
 
-	return  render(request, 'hostel/cards.html', context={'cards' : cards_dict})
+	return render(request, 'hostel/cards.html', context={'rooms_list' : rooms_list})
 
 
-def student_detail(request, name):
-	print('I am student_detail in view!')
-	student = Student.objects.all(name__iexact=name)
-	return render(request, 'hostel/student_detail.html', context={'student' : student})
+
+
+
+def room_detail(request, room):
+	return render(request, 'hostel/room_detail.html', context={'room' : room})

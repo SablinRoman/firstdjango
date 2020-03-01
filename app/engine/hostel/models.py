@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
+from .service.url_creater import translit_url
 
 
 class Student(models.Model):
@@ -32,7 +33,8 @@ class Student(models.Model):
 
 	def get_absolute_url(self):
 		print('I am absolute!')
-		return reverse('student_detail_url', kwargs={'name' : self.name})
+		url = translit_url(self.room, self.name)
+		return reverse('room_detail_url', kwargs={'room' : url})
 
 	def __str__(self):
 		return '{}'.format(self.name)
