@@ -36,6 +36,8 @@ def cards(request):
 	rooms_list = []
 
 	for i in rooms:
+		if last_room == '933':
+			print ("i am 933")
 		if last_room == None:
 			last_room = i.room
 		if i.room == last_room:
@@ -45,12 +47,9 @@ def cards(request):
 			last_room = i.room
 			names_list = []
 			names_list.append(i)
-
+	rooms_list.append(names_list)
 	return render(request, 'hostel/cards.html', context={'rooms_list' : rooms_list})
 
 
-
-
-
 def room_detail(request, room):
-	return render(request, 'hostel/room_detail.html', context={'room' : room})
+	return render(request, 'hostel/student_detail.html', context={'room' : room})

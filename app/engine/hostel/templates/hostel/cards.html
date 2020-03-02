@@ -2,30 +2,29 @@
 
 {% block cards %}
   {% for room in rooms_list %}
-
       <div class="row">
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ room.room }}</h5>
                 {%for student in room%}
+                  {% ifchanged student.room %}
+                    <h5 class="card-title">{{ student.room }}</h5>
+                  {% endifchanged %}
+
                   {% if student.name == '' %}
-                  <p>
-                    <a class="card-text" href="#">{{ student.place_status }} </a>
-                  </p>
+                    <p>
+                      <a class="card-text" href="#">{{ student.place_status }} </a>
+                    </p>
                   {% else %}
                     <p>
-                      <a class="card-text" href="#">{{ student.name }} </a>
-
+                      <a class="card-text" href="{{student.get_absolute_url}}">{{ student.name }} </a>
                     </p>
-               {%endif%}
+                  {%endif%}
                 {%endfor%}
-
               <a href="#" class="btn btn-primary">Информация о комнате</a>
             </div>
           </div>
         </div>
       </div>
-
   {% endfor %}
 {% endblock %}

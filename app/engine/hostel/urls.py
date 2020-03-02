@@ -5,7 +5,7 @@ print('==========================================')
 urlpatterns = [
 	path('', number_of, name='home_url'),
 	path('rooms/', cards, name='rooms_url'),
-	path('rooms/<str:room>/', room_detail, name='room_detail_url'),
+	path('rooms/<str:room>/', room_detail, name='student_detail_url'),
 
 ]
 

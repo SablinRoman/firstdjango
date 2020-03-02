@@ -7,22 +7,18 @@ class Student(models.Model):
 
 	name = models.CharField(max_length=50, db_index=True)
 	place_status = models.CharField(max_length=25, db_index=True, default='пусто')
-
 	room = models.CharField(max_length=8, db_index=True, blank=True)
-
 	faculty = models.CharField(max_length=10, db_index=True, blank=True, null=True)
 	form_studies = 	models.CharField(max_length=10, db_index=True, blank=True, null=True)
 	group = models.CharField(max_length=10, db_index=True, blank=True, null=True)
 	sex = models.CharField(max_length=2, db_index=True, blank=True, null=True)
 	mobile_number =	models.BigIntegerField(db_index=True, blank=True, null=True)
-	
+
 	fluorography = models.CharField(max_length=1, db_index=True, blank=True, null=True)
 	pediculosis = models.CharField(max_length=1, db_index=True, blank=True, null=True)
-
 	contract_number = models.CharField(max_length=15, db_index=True, blank=True, null=True)
 	agreement_date = models.DateField(blank=True, null=True)
 	registration = models.DateField(blank=True, null=True)
-
 	citizenship = models.CharField(max_length=20, db_index=True, blank=True, null=True)
 	date_of_birthday = models.DateField(blank=True, null=True)
 	place_of_birthday = models.CharField(max_length=70, db_index=True, blank=True, null=True)
@@ -32,9 +28,8 @@ class Student(models.Model):
 	notation = models.TextField(db_index=True, blank=True, null=True)
 
 	def get_absolute_url(self):
-		print('I am absolute!')
 		url = translit_url(self.room, self.name)
-		return reverse('room_detail_url', kwargs={'room' : url})
+		return reverse('student_detail_url', kwargs={'room' : url})
 
 	def __str__(self):
 		return '{}'.format(self.name)
