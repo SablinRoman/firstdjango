@@ -51,3 +51,6 @@ def cards(request):
 
 def student_detail(request, student_det):
 	return render(request, 'hostel/student_detail.html', context={'room' : student_det})
+
+def room_detail(request, room_det):
+	return render(request, 'hostel/room_detail.html', context={'room' : room_det})

@@ -30,6 +30,11 @@ class Student(models.Model):
 		url = translit_url(self.room, self.name)
 		return reverse('student_detail_url', kwargs={'student_det' : url})
 
+	def room_url(self):
+		print('==============///////////////=================')
+		url = self.room
+		return reverse('room_detail_url', kwargs={'room_det' : url})
+
 	def __str__(self):
 		return '{}'.format(self.name)
 
