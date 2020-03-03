@@ -13,7 +13,6 @@ class Student(models.Model):
 	group = models.CharField(max_length=10, db_index=True, blank=True, null=True)
 	sex = models.CharField(max_length=2, db_index=True, blank=True, null=True)
 	mobile_number =	models.BigIntegerField(db_index=True, blank=True, null=True)
-
 	fluorography = models.CharField(max_length=1, db_index=True, blank=True, null=True)
 	pediculosis = models.CharField(max_length=1, db_index=True, blank=True, null=True)
 	contract_number = models.CharField(max_length=15, db_index=True, blank=True, null=True)
@@ -29,7 +28,8 @@ class Student(models.Model):
 
 	def get_absolute_url(self):
 		url = translit_url(self.room, self.name)
-		return reverse('student_detail_url', kwargs={'room' : url})
+		return reverse('student_detail_url', kwargs={'student_det' : url})
 
 	def __str__(self):
 		return '{}'.format(self.name)
+
