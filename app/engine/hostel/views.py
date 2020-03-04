@@ -28,7 +28,6 @@ def number_of(request):
 														'form' : form,
 														'reg': reg,})
 
-
 def cards(request):
 	rooms = Student.objects.all()
 	last_room = None
@@ -48,9 +47,9 @@ def cards(request):
 	rooms_list.append(names_list)
 	return render(request, 'hostel/cards.html', context={'rooms_list' : rooms_list})
 
-
 def student_detail(request, student_det):
 	return render(request, 'hostel/student_detail.html', context={'room' : student_det})
 
 def room_detail(request, room_det):
 	return render(request, 'hostel/room_detail.html', context={'room' : room_det})
+
