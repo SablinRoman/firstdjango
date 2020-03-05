@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.shortcuts import redirect
 
-
 def number_of(request):
 	residents = Statistics.num_of_residents
 	male_places = Statistics.male_places
