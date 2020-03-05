@@ -1,16 +1,22 @@
 {% extends 'hostel/base_home.html' %}
 
 {% block check_in %}
-<form action="{% url 'check_in_url'%}" method="post">
+<form action="{% url 'check_in_url' %}" method="post">
     {% csrf_token %}
 
     {% for field in form %}
         <div class="from-group">
+            {% if field.errors %}
+                <div class="alert alert-danger">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+
             {{ field.label }}
             {{ field }}
         </div>
-    {%endfor%}
+    {% endfor %}
 
     <button type="submit" class="btn btn-primary">Check IN</button>
 </form>
-{%endblock%}
+{% endblock %}
