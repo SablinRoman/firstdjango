@@ -9,6 +9,10 @@ class CheckInForm(forms.Form):
     name = forms.CharField(max_length=50, help_text="ФИО")
     faculty = forms.CharField(max_length=10, help_text="Факультет")
 
+    room.widget.attrs.update({'class' : 'form-control'})
+    name.widget.attrs.update({'class': 'form-control'})
+    faculty.widget.attrs.update({'class': 'form-control'})
+
     def clean_room(self):
         new_room = self.claned_data['room']
 

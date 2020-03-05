@@ -3,9 +3,13 @@
 {% block check_in %}
 <form action="{% url 'check_in_url'%}" method="post">
     {% csrf_token %}
-    {% form.room %}
-    {% form.name %}
-    {% form.faculty %}
+
+    {% for field in form %}
+        <div class="from-group">
+            {{ field.label }}
+            {{ field }}
+        </div>
+    {%endfor%}
 
     <button type="submit" class="btn btn-primary">Check IN</button>
 </form>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Student
 from .service.stat import Statistics
 from .forms import CheckInForm
+from django.views.generic import View
 
 
 def number_of(request):
@@ -52,7 +53,10 @@ def student_detail(request, student_det):
 def room_detail(request, room_det):
 	return render(request, 'hostel/room_detail.html', context={'room' : room_det})
 
-def check_in_student(request):
+class check_in_student(View):
+
 	def get(self, request):
 		form = CheckInForm()
 		return render(request, 'hostel/check_in_list.html', context={'form' : form})
+
+
