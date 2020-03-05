@@ -1,8 +1,9 @@
-from django.shortcuts import render
 from .models import Student
 from .service.stat import Statistics
 from .forms import CheckInForm
+from django.shortcuts import render
 from django.views.generic import View
+from django.shortcuts import redirect
 
 
 def number_of(request):
@@ -16,7 +17,6 @@ def number_of(request):
 	faculty = Statistics.faculty_sort()
 	form = Statistics.form_studies_sort()
 	reg = Statistics.registration_sort()
-	
 
 	return render(request, 'hostel/index.html', context={'residents' : residents,
 														'male_places' : male_places,
@@ -47,16 +47,25 @@ def cards(request):
 	rooms_list.append(names_list)
 	return render(request, 'hostel/cards.html', context={'rooms_list' : rooms_list})
 
-def student_detail(request, student_det):
-	return render(request, 'hostel/student_detail.html', context={'room' : student_det})
 
-def room_detail(request, room_det):
-	return render(request, 'hostel/room_detail.html', context={'room' : room_det})
+class Student_detail(View):
+	def get(self, request, student_det):
+		return render(request, 'hostel/student_detail.html', context={'room': student_det})
 
-class check_in_student(View):
+class Room_detail(View):
+	def get(self, request, room_det):
+		return render(request, 'hostel/room_detail.html', context={'room': room_det})
 
+class Сheck_in_student(View):
 	def get(self, request):
 		form = CheckInForm()
 		return render(request, 'hostel/check_in_list.html', context={'form' : form})
+
+	def post(self, request):
+		bound_form = CheckInForm(request.POST)
+		if bound_form.is_valid():
+			new_student = bound_form.save()
+			return redirect(new_student)
+		return render(request, 'hostel/check_in_list.html', context={'form' : bound_form})
 
 
