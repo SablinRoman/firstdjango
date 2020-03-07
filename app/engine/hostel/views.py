@@ -67,4 +67,7 @@ class Сheck_in_student(View):
 			return redirect(new_student)
 		return render(request, 'hostel/check_in_list.html', context={'form' : bound_form})
 
+# class Check_In_student_Update(View):
+# 	def get(self, request, student_det):
+#
 
