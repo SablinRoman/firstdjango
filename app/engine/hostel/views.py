@@ -28,7 +28,7 @@ def number_of(request):
 														'reg': reg,})
 
 def cards(request):
-	rooms = Student.objects.all()
+	rooms = Student.objects.all().order_by('room')
 	last_room = None
 	names_list = []
 	rooms_list = []
@@ -46,10 +46,9 @@ def cards(request):
 	rooms_list.append(names_list)
 	return render(request, 'hostel/cards.html', context={'rooms_list' : rooms_list})
 
-
 class Student_detail(View):
-	def get(self, request, student_det):
-		return render(request, 'hostel/student_detail.html', context={'room': student_det})
+	def get(self, request, id):
+		return render(request, 'hostel/student_detail.html', context={'room': id})
 
 class Room_detail(View):
 	def get(self, request, room_det):
@@ -67,7 +66,13 @@ class Сheck_in_student(View):
 			return redirect(new_student)
 		return render(request, 'hostel/check_in_list.html', context={'form' : bound_form})
 
-# class Check_In_student_Update(View):
-# 	def get(self, request, student_det):
-#
+class Check_In_student_Update(View):
+	def get(self, request, id):
+		print('}}}}}}}}}}}}}}}}}}}}}}}}}}')
+		print(id)
+		print('}}}}}}}}}}}}}}}}}}}}}}}}}}')
+		student = Student.objects.get(id= id)
+		bound_form = CheckInForm(instance=student)
+		print(bound_form)
+		return render(request, 'hostel/check_in_update_list.html', context={'bound_form' : bound_form, 'student' : student})
 

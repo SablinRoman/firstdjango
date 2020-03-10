@@ -27,8 +27,8 @@ class Student(models.Model):
 	notation = models.TextField(db_index=True, blank=True, null=True)
 
 	def get_absolute_url(self):
-		url = translit_url(self.room, self.name)
-		return reverse('student_detail_url', kwargs={'student_det' : url})
+		id = self.id
+		return reverse('student_detail_url', kwargs={'id' : id})
 
 	def room_url(self):
 		url = self.room
