@@ -1,3 +1,12 @@
-<p>
-     Инфа о студенте
-</p>
+{% extends 'hostel/base_cards.html' %}
+
+{% block student_det %}
+     <p>
+        {{student.room}}: {{ student.name }}
+     </p>
+     <p>
+          {{ student.faculty }}, группа {{ student.group }}, {{student.form_studies}}
+     </p>
+
+     <a href="{% url 'check_in_update_url' id=student.id %}" method="post" class="btn btn-primary">Edit</a>
+{% endblock %}

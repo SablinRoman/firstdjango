@@ -13,7 +13,7 @@
 
                   {% if student.name == '' %}
                     <p>
-                      <a class="card-text" href="#">{{ student.place_status }} </a>
+                      <a class="card-text" href="{% url 'check_in_update_url' id=student.id %}" method="post">{{ student.place_status }} </a>
                     </p>
                   {% else %}
                     <p>
