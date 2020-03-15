@@ -35,11 +35,6 @@ class Student(models.Model):
 		url = self.room
 		return reverse('room_detail_url', kwargs={'room_det' : url})
 
-	def student_del(self):
-		Student.objects.get(id=self.id).delete()
-		print(self.name, ' was deleted!')
-		return reverse('rooms_url')
-
 	def __str__(self):
 		return self.name
 

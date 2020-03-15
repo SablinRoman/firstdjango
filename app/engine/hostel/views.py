@@ -52,9 +52,17 @@ class Student_detail(View):
 		student = Student.objects.get(id= id)
 		return render(request, 'hostel/student_detail.html', context={'room': id, 'student': student})
 
+def student_delete(request, id):
+	student = Student.objects.get(id=id)
+	student.delete()
+	return redirect(reverse('rooms_url'))
+
+
+
 class Room_detail(View):
 	def get(self, request, room_det):
 		return render(request, 'hostel/room_detail.html', context={'room': room_det})
+
 
 class Сheck_in_student(View):
 	def get(self, request):
@@ -82,12 +90,4 @@ class Check_In_student_Update(View):
 			return redirect(new_student)
 		return render(request, 'hostel/check_in_update_list.html', context={'bound_form' : bound_form, 'student' : student})
 
-class StudentDelete(View):
-	def get(self, request, id):
-		student = Student.objects.get(id= id)
-
-	def post(self, request, id):
-		student = Student.objects.get(id=id)
-		student.delete()
-		return redirect(reverse('rooms_url'))
 
