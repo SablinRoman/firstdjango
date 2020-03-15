@@ -1,6 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 from .service.url_creater import translit_url
+from django.shortcuts import redirect
 
 
 class Student(models.Model):
@@ -33,6 +34,11 @@ class Student(models.Model):
 	def room_url(self):
 		url = self.room
 		return reverse('room_detail_url', kwargs={'room_det' : url})
+
+	def student_del(self):
+		Student.objects.get(id=self.id).delete()
+		print(self.name, ' was deleted!')
+		return reverse('rooms_url')
 
 	def __str__(self):
 		return self.name

@@ -2,6 +2,7 @@ from .models import Student
 from .service.stat import Statistics
 from .forms import CheckInForm
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import View
 from django.shortcuts import redirect
 
@@ -69,16 +70,24 @@ class Сheck_in_student(View):
 
 class Check_In_student_Update(View):
 	def get(self, request, id):
-		print('############## GET#####################')
 		student = Student.objects.get(id= id)
 		bound_form = CheckInForm(instance=student)
 		return render(request, 'hostel/check_in_update_list.html', context={'bound_form' : bound_form, 'student' : student})
 
 	def post(self, request, id):
-		print('!!!!!!!!!!!!!!! POST !!!!!!!!!!!!!!!!!!')
 		student = Student.objects.get(id= id)
 		bound_form = CheckInForm(request.POST, instance=student)
 		if bound_form.is_valid():
 			new_student = bound_form.save()
 			return redirect(new_student)
 		return render(request, 'hostel/check_in_update_list.html', context={'bound_form' : bound_form, 'student' : student})
+
+class StudentDelete(View):
+	def get(self, request, id):
+		student = Student.objects.get(id= id)
+
+	def post(self, request, id):
+		student = Student.objects.get(id=id)
+		student.delete()
+		return redirect(reverse('rooms_url'))
+
