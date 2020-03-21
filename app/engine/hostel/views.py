@@ -31,22 +31,37 @@ def number_of(request):
 
 
 def cards(request):
-    rooms = Student.objects.all().order_by('room')
+    students = Student.objects.all().order_by('room')
     last_room = None
     names_list = []
+    twin_rooms_list = []
     rooms_list = []
+    even_flag = False  # Флаг четности
 
-    for i in rooms:
-        if last_room == None:
-            last_room = i.room
-        if i.room == last_room:
-            names_list.append(i)
+    for student in students:
+        if last_room is None:
+            last_room = student.room
+
+        if student.room == last_room:
+            names_list.append(student)
         else:
-            rooms_list.append(names_list)
-            last_room = i.room
-            names_list = []
-            names_list.append(i)
-    rooms_list.append(names_list)
+            if even_flag:
+                twin_rooms_list.append(names_list)
+                rooms_list.append(twin_rooms_list)
+                twin_rooms_list = []
+                names_list = []
+                last_room = student.room
+                names_list.append(student)
+                even_flag = False
+            else:
+                twin_rooms_list.append(names_list)
+                names_list = []
+                last_room = student.room
+                names_list.append(student)
+                even_flag = True
+    twin_rooms_list.append(names_list)
+    rooms_list.append(twin_rooms_list)
+
     return render(request, 'hostel/cards.html', context={'rooms_list': rooms_list})
 
 

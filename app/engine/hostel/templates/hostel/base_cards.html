@@ -1,1 +1,14 @@
 {% extends 'base_main.html' %}
+
+{% block content %}
+    {% for twin_room in rooms_list %}
+        <div class="row">
+            {% for room in twin_room %}
+
+                {%block cards%}
+                {% endblock %}
+
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

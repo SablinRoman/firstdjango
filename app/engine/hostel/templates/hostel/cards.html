@@ -1,45 +1,30 @@
 {% extends 'hostel/base_cards.html' %}
 
 {% block cards %}
-  {% for room in rooms_list %}
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-                {% for student in room %}
-                  {% ifchanged student.room %}
-                    <h5 class="card-title">{{ student.room }}</h5>
-                  {% endifchanged %}
 
-                  {% if student.name == '' %}
-                    <p>
-                      <a class="card-text" href="{% url 'check_in_update_url' id=student.id %}" method="post">{{ student.place_status }} </a>
-                    </p>
-                  {% else %}
-                    <p>
-                      <a class="card-text" href="{{student.get_absolute_url}}">{{ student.name }} </a>
-                    </p>
-                  {%endif%}
-                {%endfor%}
-                {% for student in room %}
-                  {% ifchanged student.room %}
-                    <a href="{{student.room_url}}" class="btn btn-primary">Информация о комнате</a>
-                  {% endifchanged %}
-                 {% endfor %}
-            </div>
-          </div>
-        </div>
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-body">
+        {% for student in room %}
 
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Специальный заголовок</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
-              </div>
-            </div>
-          </div>
+            {% ifchanged student.room %}
+                <h5 class="card-title">{{ student.room }}</h5>
+            {% endifchanged %}
 
-      </div>
-  {% endfor %}
+            {% if student.name == '' %}
+                <p>
+                  <a class="card-text" href="{% url 'check_in_update_url' id=student.id %}" method="post">{{ student.place_status }} </a>
+                </p>
+            {% else %}
+                <p>
+                  <a class="card-text" href="{{student.get_absolute_url}}">{{ student.name }} </a>
+                </p>
+            {%endif%}
+
+        {%endfor%}
+            <a href="{{student.room_url}}" class="btn btn-primary">Информация о комнате</a>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
