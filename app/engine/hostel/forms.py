@@ -37,6 +37,7 @@ class CheckInForm(forms.ModelForm):
 
     def clean_room(self):
         # Добавить защиту от ввода буквенных значений
+        # Нельзя отердактировать данные, если в комнате 4 человека
         new_room = self.cleaned_data['room']
         if new_room == '':
             raise ValidationError('Поле комнаты не может быть пустым!')
@@ -46,8 +47,10 @@ class CheckInForm(forms.ModelForm):
 
     def clean_name(self):
         new_name = self.cleaned_data['name']
-        if not new_name.isalpha():
-            raise ValidationError('ФИО может содеражать только буквенные символы!')
+        frmt = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя- '
+        for i in new_name:
+            if i.lower() not in frmt:
+                raise ValidationError('ФИО может содеражать только буквенные символы!')
         return new_name
 
     def clean_faculty(self):
@@ -62,22 +65,12 @@ class CheckInForm(forms.ModelForm):
     def clean_mobile_number(self):
         new_number = self.cleaned_data['mobile_number']
         #  Проверна на наличие буквенных символов не отрабатывает
-        if not str(new_number).isdigit():
-            raise ValidationError('Номер телефона  может содеражать только цифры!')
-        if len(str(new_number)) != 11:
-            raise ValidationError('Количество цифр не равно 11!')
+        if new_number is not None:
+            if not str(new_number).isdigit():
+                raise ValidationError('Номер телефона  может содеражать только цифры!')
+            if len(str(new_number)) != 11:
+                raise ValidationError('Количество цифр не равно 11!')
         return new_number
 
     def clean_contract_number(self):
         pass
-
-
-
-
-
-
-
-
-
-
-
