@@ -35,23 +35,33 @@ class CheckInForm(forms.ModelForm):
                    'notation': forms.TextInput(attrs={'class': 'form-control'}),
                    }
 
+    def clean(self):
+        cleaned_data = super(CheckInForm, self).clean()
+        new_room = cleaned_data.get('room')
+        new_name = cleaned_data.get('name')
+        print(dir(new_name))
+        if Student.objects.filter(room=new_room).count() > 3:
+            if not Student.objects.filter(room=new_room, name__icontains=new_name):
+                print('TEXT')
+                raise ValidationError('The room is full')
+
+
+
     def clean_room(self):
         # Добавить защиту от ввода буквенных значений
-        # Нельзя отердактировать данные, если в комнате 4 человека
         new_room = self.cleaned_data['room']
         if new_room == '':
             raise ValidationError('Поле комнаты не может быть пустым!')
-        if Student.objects.filter(room=new_room).count() > 3:
-            raise ValidationError('Комната заполнена!')
+
         return new_room
 
-    def clean_name(self):
-        new_name = self.cleaned_data['name']
-        frmt = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя- '
-        for i in new_name:
-            if i.lower() not in frmt:
-                raise ValidationError('ФИО может содеражать только буквенные символы!')
-        return new_name
+    # def clean_name(self):
+    #     new_name = self.cleaned_data['name']
+    #     frmt = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя- '
+    #     for i in new_name:
+    #         if i.lower() not in frmt:
+    #             raise ValidationError('ФИО может содеражать только буквенные символы!')
+    #     return new_name
 
     def clean_faculty(self):
         new_faculty = self.cleaned_data['faculty']
