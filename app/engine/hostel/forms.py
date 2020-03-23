@@ -11,7 +11,7 @@ class CheckInForm(forms.ModelForm):
                   'group', 'sex', 'mobile_number', 'fluorography', 'pediculosis',
                   'contract_number', 'agreement_date', 'registration', 'citizenship',
                   'date_of_birthday', 'place_of_birthday', 'document_number', 'authority',
-                  'date_of_issue', 'notation'
+                  'date_of_issue', 'notation', 'id'
                   ]
         widgets = {'room': forms.TextInput(attrs={'class': 'form-control'}),
                    'name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -33,17 +33,18 @@ class CheckInForm(forms.ModelForm):
                    'authority': forms.TextInput(attrs={'class': 'form-control'}),
                    'date_of_issue': forms.DateInput(attrs={'class': 'form-control'}),
                    'notation': forms.TextInput(attrs={'class': 'form-control'}),
+                   'id': forms.TextInput(attrs={'class': 'form-control'}),
                    }
 
     def clean(self):
         cleaned_data = super(CheckInForm, self).clean()
         new_room = cleaned_data.get('room')
-        new_name = cleaned_data.get('name')
-        print(dir(new_name))
+
         if Student.objects.filter(room=new_room).count() > 3:
-            if not Student.objects.filter(room=new_room, name__icontains=new_name):
-                print('TEXT')
-                raise ValidationError('The room is full')
+            print(Student.objects.filter(room=new_room).count())
+            if self.instance.pk is not None:  # if edit then filter with id
+                if not Student.objects.filter(room=new_room, id=self.instance.pk):
+                    raise ValidationError('The room is full')
 
 
 

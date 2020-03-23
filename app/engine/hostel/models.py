@@ -12,6 +12,7 @@ class Student(models.Model):
         ('М', 'Мужской'),
         ('Ж', 'Женский')
     )
+    id = models.AutoField(primary_key=True)
 
     name = models.CharField(max_length=50,
                             db_index=True)
