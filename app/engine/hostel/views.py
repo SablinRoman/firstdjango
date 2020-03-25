@@ -1,3 +1,5 @@
+from django.db.models.functions import Length
+
 from .models import Student
 from .service.stat import Statistics
 from .forms import CheckInForm
@@ -5,6 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import View
 from django.shortcuts import redirect
+from .service.rewrite import rewrite_room
 
 
 def number_of(request):
@@ -61,7 +64,6 @@ def cards(request):
                 even_flag = True
     twin_rooms_list.append(names_list)
     rooms_list.append(twin_rooms_list)
-
     return render(request, 'hostel/cards.html', context={'rooms_list': rooms_list})
 
 

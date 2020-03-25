@@ -21,9 +21,8 @@ class Student(models.Model):
                                     db_index=True,
                                     default='пусто')
 
-    room = models.CharField(max_length=8,
-                            db_index=True,
-                            blank=True)
+    room = models.IntegerField(db_index=True,
+                               blank=True)
 
     faculty = models.CharField(max_length=10,
                                db_index=True,

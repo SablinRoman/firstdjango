@@ -13,7 +13,7 @@ class CheckInForm(forms.ModelForm):
                   'date_of_birthday', 'place_of_birthday', 'document_number', 'authority',
                   'date_of_issue', 'notation', 'id'
                   ]
-        widgets = {'room': forms.TextInput(attrs={'class': 'form-control'}),
+        widgets = {'room': forms.NumberInput(attrs={'class': 'form-control'}),
                    'name': forms.TextInput(attrs={'class': 'form-control'}),
                    'faculty': forms.TextInput(attrs={'class': 'form-control'}),
                    'place_status': forms.TextInput(attrs={'class': 'form-control'}),
@@ -55,13 +55,13 @@ class CheckInForm(forms.ModelForm):
 
         return new_room
 
-    def clean_name(self):
-        new_name = self.cleaned_data['name']
-        frmt = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя- '
-        for i in new_name:
-            if i.lower() not in frmt:
-                raise ValidationError('ФИО может содеражать только буквенные символы!')
-        return new_name
+    # def clean_name(self):
+    #     new_name = self.cleaned_data['name']
+    #     frmt = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя- '
+    #     for i in new_name:
+    #         if i.lower() not in frmt:
+    #             raise ValidationError('ФИО может содеражать только буквенные символы!')
+    #     return new_name
 
     def clean_faculty(self):
         new_faculty = self.cleaned_data['faculty']

@@ -5,11 +5,11 @@ from datetime import datetime
 class Statistics():
 
 	all_count = Student.objects.all().count()
-	male_places = Student.objects.filter(place_status__icontains= 'мужское').count()
-	female_places = Student.objects.filter(place_status__icontains= 'женское').count()
-	empty_places = Student.objects.filter(place_status__icontains= 'пусто').count()
-	save_places = Student.objects.filter(place_status__icontains= 'занято').count()
-	num_of_residents = all_count - male_places - female_places -  empty_places - save_places
+	male_places = Student.objects.filter(place_status__icontains='мужское').count()
+	female_places = Student.objects.filter(place_status__icontains='женское').count()
+	empty_places = Student.objects.filter(place_status__icontains='пусто').count()
+	save_places = Student.objects.filter(place_status__icontains='занято').count()
+	num_of_residents = all_count - male_places - female_places - empty_places - save_places
 	all_free_places = male_places + female_places + empty_places + save_places
 	flurog_cert = num_of_residents - Student.objects.filter(fluorography__contains='+').count()
 	pedicul_cert = num_of_residents - Student.objects.filter(pediculosis__contains='+').count()
