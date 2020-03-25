@@ -41,12 +41,11 @@ class CheckInForm(forms.ModelForm):
         new_room = cleaned_data.get('room')
 
         if Student.objects.filter(room=new_room).count() > 3:
-            print(Student.objects.filter(room=new_room).count())
             if self.instance.pk is not None:  # if edit then filter with id
                 if not Student.objects.filter(room=new_room, id=self.instance.pk):
-                    raise ValidationError('The room is full')
-
-
+                    raise ValidationError('Комната уже заполнена!')
+            else:
+                raise ValidationError('Комната уже заполнена!')
 
     def clean_room(self):
         # Добавить защиту от ввода буквенных значений
@@ -56,13 +55,13 @@ class CheckInForm(forms.ModelForm):
 
         return new_room
 
-    # def clean_name(self):
-    #     new_name = self.cleaned_data['name']
-    #     frmt = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя- '
-    #     for i in new_name:
-    #         if i.lower() not in frmt:
-    #             raise ValidationError('ФИО может содеражать только буквенные символы!')
-    #     return new_name
+    def clean_name(self):
+        new_name = self.cleaned_data['name']
+        frmt = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя- '
+        for i in new_name:
+            if i.lower() not in frmt:
+                raise ValidationError('ФИО может содеражать только буквенные символы!')
+        return new_name
 
     def clean_faculty(self):
         new_faculty = self.cleaned_data['faculty']
