@@ -12,89 +12,38 @@ class Student(models.Model):
         ('М', 'Мужской'),
         ('Ж', 'Женский')
     )
+    STUDENT_STATUS_CHOICES = (
+        ('Студент', 'Студент'),
+        ('Заочник', 'Заочник'),
+        ('Семейник', 'Семейник'),
+        ('Расселитель', 'Расселитель'),
+        ('Староста этажа', 'Староста этажа'),
+        ('Актив этажа', 'Актив этажа'),
+        ('Санитарная комиссия', 'Санитарная комиссия'),
+        ('СООПР', 'СООПР'),
+    )
+
     id = models.AutoField(primary_key=True)
-
-    name = models.CharField(max_length=50,
-                            db_index=True)
-
-    place_status = models.CharField(max_length=25,
-                                    db_index=True,
-                                    default='пусто')
-
-    room = models.IntegerField(db_index=True,
-                               blank=True)
-
-    faculty = models.CharField(max_length=10,
-                               db_index=True,
-                               blank=True,
-                               null=True)
-
-    form_studies = models.CharField(max_length=10,
-                                    db_index=True,
-                                    choices=FORM_STUDIES_CHOICES,
-                                    blank=True,
-                                    null=True)
-
-    group = models.CharField(max_length=10,
-                             db_index=True,
-                             blank=True,
-                             null=True)
-
-    sex = models.CharField(max_length=2,
-                           db_index=True,
-                           choices=SEX_CHOICES,
-                           blank=True,
-                           null=True)
-
-    mobile_number = models.BigIntegerField(db_index=True,
-                                           blank=True,
-                                           null=True)
-
-    fluorography = models.BooleanField(db_index=True,
-                                       default=False)
-
-    pediculosis = models.BooleanField(db_index=True,
-                                      default=False)
-
-    contract_number = models.CharField(max_length=15,
-                                       db_index=True,
-                                       blank=True,
-                                       null=True)
-
-    agreement_date = models.DateField(blank=True,
-                                      null=True)
-
-    registration = models.DateField(blank=True,
-                                    null=True)
-
-    citizenship = models.CharField(max_length=20,
-                                   db_index=True,
-                                   blank=True,
-                                   null=True)
-
-    date_of_birthday = models.DateField(blank=True,
-                                        null=True)
-
-    place_of_birthday = models.CharField(max_length=70,
-                                         db_index=True,
-                                         blank=True,
-                                         null=True)
-
-    document_number = models.CharField(max_length=20,
-                                       db_index=True,
-                                       blank=True,
-                                       null=True)
-
-    authority = models.CharField(max_length=100,
-                                 blank=True,
-                                 null=True)
-
-    date_of_issue = models.DateField(blank=True,
-                                     null=True)
-
-    notation = models.TextField(db_index=True,
-                                blank=True,
-                                null=True)
+    name = models.CharField(max_length=50, db_index=True)
+    student_status = models.CharField(max_length=30, db_index=True, choices=STUDENT_STATUS_CHOICES,
+                                      blank=True, null=True)
+    faculty = models.CharField(max_length=10, db_index=True, blank=True, null=True)
+    form_studies = models.CharField(max_length=10, db_index=True, choices=FORM_STUDIES_CHOICES, blank=True, null=True)
+    group = models.CharField(max_length=10, db_index=True, blank=True, null=True)
+    sex = models.CharField(max_length=2, db_index=True, choices=SEX_CHOICES, blank=True, null=True)
+    mobile_number = models.BigIntegerField(db_index=True, blank=True, null=True)
+    fluorography = models.BooleanField(db_index=True, default=False)
+    pediculosis = models.BooleanField(db_index=True, default=False)
+    contract_number = models.CharField(max_length=15, db_index=True, blank=True, null=True)
+    agreement_date = models.DateField(blank=True, null=True)
+    registration = models.DateField(blank=True, null=True)
+    citizenship = models.CharField(max_length=20, db_index=True, blank=True, null=True)
+    date_of_birthday = models.DateField(blank=True, null=True)
+    place_of_birthday = models.CharField(max_length=70, db_index=True, blank=True, null=True)
+    document_number = models.CharField(max_length=20, db_index=True, blank=True, null=True)
+    authority = models.CharField(max_length=100, blank=True, null=True)
+    date_of_issue = models.DateField(blank=True, null=True)
+    notation = models.TextField(db_index=True, blank=True, null=True)
 
     def get_absolute_url(self):
         id = self.id
@@ -106,3 +55,13 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Room(models.Model):
+
+    room = models.IntegerField(db_index=True, blank=True)
+    room_status = models.CharField(max_length=25, db_index=True, default='пусто')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.room
