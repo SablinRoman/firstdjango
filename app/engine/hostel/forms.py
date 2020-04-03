@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 class CheckInForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['room', 'name', 'faculty', 'place_status', 'form_studies',
+        fields = ['name', 'faculty', 'form_studies',
                   'group', 'sex', 'mobile_number', 'fluorography', 'pediculosis',
                   'contract_number', 'agreement_date', 'registration', 'citizenship',
                   'date_of_birthday', 'place_of_birthday', 'document_number', 'authority',
@@ -16,7 +16,7 @@ class CheckInForm(forms.ModelForm):
         widgets = {'room': forms.NumberInput(attrs={'class': 'form-control'}),
                    'name': forms.TextInput(attrs={'class': 'form-control'}),
                    'faculty': forms.TextInput(attrs={'class': 'form-control'}),
-                   'place_status': forms.TextInput(attrs={'class': 'form-control'}),
+                   # 'place_status': forms.TextInput(attrs={'class': 'form-control'}),
                    'form_studies': forms.Select(attrs={'class': 'form-control'}),
                    'group': forms.TextInput(attrs={'class': 'form-control'}),
                    'sex': forms.Select(attrs={'class': 'form-control'}),

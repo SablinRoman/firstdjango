@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import View
 from django.shortcuts import redirect
-from .service.rewrite import rewrite_room
+
 
 
 def number_of(request):

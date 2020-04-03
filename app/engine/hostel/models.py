@@ -12,7 +12,8 @@ class Student(models.Model):
         ('М', 'Мужской'),
         ('Ж', 'Женский')
     )
-    STUDENT_STATUS_CHOICES = (
+
+    BED_STATUS_CHOICES = (
         ('Студент', 'Студент'),
         ('Заочник', 'Заочник'),
         ('Семейник', 'Семейник'),
@@ -21,12 +22,16 @@ class Student(models.Model):
         ('Актив этажа', 'Актив этажа'),
         ('Санитарная комиссия', 'Санитарная комиссия'),
         ('СООПР', 'СООПР'),
+        ('Женское', 'Женское'),
+        ('Мужское', 'Мужское'),
+        ('Занято', 'Занято'),
+        ('Пусто', 'Пусто'),
     )
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, db_index=True)
-    student_status = models.CharField(max_length=30, db_index=True, choices=STUDENT_STATUS_CHOICES,
-                                      blank=True, null=True)
+    bed_status = models.CharField(max_length=30, db_index=True, choices=BED_STATUS_CHOICES,
+                                  blank=True, null=True)
     faculty = models.CharField(max_length=10, db_index=True, blank=True, null=True)
     form_studies = models.CharField(max_length=10, db_index=True, choices=FORM_STUDIES_CHOICES, blank=True, null=True)
     group = models.CharField(max_length=10, db_index=True, blank=True, null=True)
@@ -58,9 +63,7 @@ class Student(models.Model):
 
 
 class Room(models.Model):
-
     room = models.IntegerField(db_index=True, blank=True)
-    room_status = models.CharField(max_length=25, db_index=True, default='пусто')
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     def __str__(self):
