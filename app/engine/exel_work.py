@@ -1,5 +1,7 @@
-import openpyxl, sys, os
 import django
+import openpyxl
+import os
+import sys
 
 wb = openpyxl.load_workbook('./Baza.xlsx')
 sheet = wb.get_sheet_by_name('Проживающие')
@@ -10,11 +12,13 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'engine.settings')  # Добав
 django.setup()
 from hostel.models import Student  # Примечание: импорт не работает, если находться на верху
 
+# from hostel.models import Room  # Примечание: импорт не работает, если находться на верху
+
 i = int(input("Start row ="))
 print()
 
 status_list = ['мужское', 'женское', 'пусто', 'занято', ]
-while sheet.cell(row=i, column=1).value != None:
+while sheet.cell(row=i, column=1).value is not None:
     student = Student()
 
     student.room = sheet.cell(row=i, column=1).value

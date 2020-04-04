@@ -1,6 +1,5 @@
-from django.db.models.functions import Length
-
 from .models import Student
+from .models import Room
 from .service.stat import Statistics
 from .forms import CheckInForm
 from django.shortcuts import render
@@ -43,6 +42,7 @@ def cards(request):
 
     for student in students:
         if last_room is None:
+            print(dir(students))
             last_room = student.room
 
         if student.room == last_room:
@@ -54,12 +54,14 @@ def cards(request):
                 twin_rooms_list = []
                 names_list = []
                 last_room = student.room
+                print(student.room)
                 names_list.append(student)
                 even_flag = False
             else:
                 twin_rooms_list.append(names_list)
                 names_list = []
                 last_room = student.room
+                print(student.room)
                 names_list.append(student)
                 even_flag = True
     twin_rooms_list.append(names_list)
