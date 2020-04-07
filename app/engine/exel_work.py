@@ -11,24 +11,41 @@ sys.path.append(project_dir)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'engine.settings')  # Добавление переменной окуружения
 django.setup()
 from hostel.models import Student  # Примечание: импорт не работает, если находться на верху
+from hostel.models import Room  # Примечание: импорт не работает, если находться на верху
 
-# from hostel.models import Room  # Примечание: импорт не работает, если находться на верху
 
 i = int(input("Start row ="))
 print()
 
-status_list = ['мужское', 'женское', 'пусто', 'занято', ]
+
+status_list = ['мужское', 'женское', 'пусто', 'занято']
+
+
+
+
+
+
+
+hostel = Room()
+hostel.room_numb = sheet.cell(row=i, column=1).value
+hostel.save()
+old_room = hostel.room_numb
+
 while sheet.cell(row=i, column=1).value is not None:
+
+    if old_room != sheet.cell(row=i, column=1).value:
+        hostel = Room()
+        hostel.room_numb = sheet.cell(row=i, column=1).value
+        hostel.save()
+        old_room = sheet.cell(row=i, column=1).value
+
     student = Student()
-
-    student.room = sheet.cell(row=i, column=1).value
-
     if sheet.cell(row=i, column=2).value in status_list:
         student.name = ''
-        student.place_status = sheet.cell(row=i, column=2).value
+        student.bed_status = sheet.cell(row=i, column=2).value
     else:
         student.name = sheet.cell(row=i, column=2).value
-        student.place_status = sheet.cell(row=i, column=6).value
+        student.bed_status = sheet.cell(row=i, column=6).value
 
     student.faculty = sheet.cell(row=i, column=3).value
     student.form_studies = sheet.cell(row=i, column=4).value
@@ -59,5 +76,14 @@ while sheet.cell(row=i, column=1).value is not None:
     student.save()
     print(i, ' ', student.name)
 
+    student.room = hostel
+    student.save()
+
+
+
+
     i += 1
 print('Import completed')
+
+
+

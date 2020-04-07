@@ -32,41 +32,55 @@ def number_of(request):
                                                          'reg': reg, })
 
 
+# def cards(request):
+#     students = Student.objects.all().order_by('room')
+#     last_room = None
+#     names_list = []
+#     twin_rooms_list = []
+#     rooms_list = []
+#     even_flag = False  # Флаг четности
+#
+#     for student in students:
+#         if last_room is None:
+#             print(dir(students))
+#             last_room = student.room
+#
+#         if student.room == last_room:
+#             names_list.append(student)
+#         else:
+#             if even_flag:
+#                 twin_rooms_list.append(names_list)
+#                 rooms_list.append(twin_rooms_list)
+#                 twin_rooms_list = []
+#                 names_list = []
+#                 last_room = student.room
+#                 print(student.room)
+#                 names_list.append(student)
+#                 even_flag = False
+#             else:
+#                 twin_rooms_list.append(names_list)
+#                 names_list = []
+#                 last_room = student.room
+#                 print(student.room)
+#                 names_list.append(student)
+#                 even_flag = True
+#     twin_rooms_list.append(names_list)
+#     rooms_list.append(twin_rooms_list)
+#     return render(request, 'hostel/cards.html', context={'rooms_list': rooms_list})
+
+
+
 def cards(request):
-    students = Student.objects.all().order_by('room')
-    last_room = None
-    names_list = []
-    twin_rooms_list = []
-    rooms_list = []
-    even_flag = False  # Флаг четности
+    room_list = Room.objects.all()
 
-    for student in students:
-        if last_room is None:
-            print(dir(students))
-            last_room = student.room
 
-        if student.room == last_room:
-            names_list.append(student)
-        else:
-            if even_flag:
-                twin_rooms_list.append(names_list)
-                rooms_list.append(twin_rooms_list)
-                twin_rooms_list = []
-                names_list = []
-                last_room = student.room
-                print(student.room)
-                names_list.append(student)
-                even_flag = False
-            else:
-                twin_rooms_list.append(names_list)
-                names_list = []
-                last_room = student.room
-                print(student.room)
-                names_list.append(student)
-                even_flag = True
-    twin_rooms_list.append(names_list)
-    rooms_list.append(twin_rooms_list)
-    return render(request, 'hostel/cards.html', context={'rooms_list': rooms_list})
+    for room in room_list:
+        print(room, ' ', room.students.all())
+
+    return render(request, 'hostel/cards.html', context={})
+
+
+
 
 
 class Student_detail(View):
