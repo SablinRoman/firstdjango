@@ -72,12 +72,20 @@ def number_of(request):
 
 def cards(request):
     room_list = Room.objects.all()
+    twin_rooms = []
+    hostel_rooms = []
 
+    for index, room in enumerate(room_list):
+        if index % 2 == 0:
+            twin_rooms.append(room)
+        else:
+            twin_rooms.append(room)
+            hostel_rooms.append(twin_rooms)
+            twin_rooms = []
 
-    for room in room_list:
-        print(room, ' ', room.students.all())
+        # print('INDEX=', index, 'ROOM=',room, ' ', room.students.all())
 
-    return render(request, 'hostel/cards.html', context={})
+    return render(request, 'hostel/cards.html', context={'hostel_rooms':hostel_rooms})
 
 
 

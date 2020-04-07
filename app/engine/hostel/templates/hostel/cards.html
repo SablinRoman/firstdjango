@@ -5,23 +5,14 @@
 <div class="col-sm-6">
   <div class="card">
     <div class="card-body">
-        {% for student in room %}
+        <h5 class="card-title">{{room.room_numb }}</h5>
 
-            {% ifchanged student.room %}
-                <h5 class="card-title">{{ student.room }}</h5>
-            {% endifchanged %}
-
-            {% if student.name == '' %}
-                <p>
-                  <a class="card-text" href="{% url 'check_in_update_url' id=student.id %}" method="post">{{ student.place_status }} </a>
-                </p>
-            {% else %}
+        {% for student in room.students.all %}
                 <p>
                   <a class="card-text" href="{{student.get_absolute_url}}">{{ student.name }} </a>
                 </p>
-            {%endif%}
-
-        {%endfor%}
+        {% endfor %}
+        
             <a href="{{student.room_url}}" class="btn btn-primary">Информация о комнате</a>
     </div>
   </div>
