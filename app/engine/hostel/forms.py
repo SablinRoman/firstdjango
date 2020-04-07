@@ -1,10 +1,11 @@
 import re
 from django import forms
 from .models import Student
+from .models import Room
 from django.core.exceptions import ValidationError
 
 
-class CheckInForm(forms.ModelForm):
+class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ['name', 'faculty', 'form_studies',
@@ -84,3 +85,10 @@ class CheckInForm(forms.ModelForm):
 
     def clean_contract_number(self):
         pass
+
+
+class RoomForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = ['room_numb']
+        widgets = {'room_numb': forms.NumberInput(attrs={'class': 'form-control'})}

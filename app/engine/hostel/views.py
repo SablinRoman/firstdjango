@@ -1,7 +1,8 @@
 from .models import Student
 from .models import Room
 from .service.stat import Statistics
-from .forms import CheckInForm
+from .forms import StudentForm
+from .forms import RoomForm
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import View
@@ -66,8 +67,9 @@ class Room_detail(View):
 
 class Сheck_in_student(View):
     def get(self, request):
-        form = CheckInForm()
-        return render(request, 'hostel/check_in_list.html', context={'form': form})
+        form = StudentForm()
+        formr = RoomForm()
+        return render(request, 'hostel/check_in_list.html', context={'form': form, 'formr': formr})
 
     def post(self, request):
         bound_form = CheckInForm(request.POST)
