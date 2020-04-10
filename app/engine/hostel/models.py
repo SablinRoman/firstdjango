@@ -50,7 +50,8 @@ class Student(models.Model):
     date_of_issue = models.DateField(blank=True, null=True)
     notation = models.TextField(db_index=True, blank=True, null=True)
 
-    room = models.ForeignKey('Room', related_name='students', on_delete=models.CASCADE, blank=True, null=True)
+    room = models.ForeignKey('Room', related_name='students', on_delete=models.CASCADE,
+                             to_field='room_numb', blank=True, null=True)
 
     def get_absolute_url(self):
         id = self.id
@@ -65,7 +66,7 @@ class Student(models.Model):
 
 
 class Room(models.Model):
-    room_numb = models.IntegerField(db_index=True, blank=True, null=True)
+    room_numb = models.IntegerField(db_index=True, blank=True, null=True, unique=True)
 
     def __str__(self):
         return str(self.room_numb)

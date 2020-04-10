@@ -34,6 +34,7 @@ def number_of(request):
 
 def cards(request):
     room_list = Room.objects.all()
+    print(room_list)
     twin_rooms = []
     hostel_rooms = []
 
@@ -44,7 +45,7 @@ def cards(request):
             twin_rooms.append(room)
             hostel_rooms.append(twin_rooms)
             twin_rooms = []
-
+    print(hostel_rooms)
     return render(request, 'hostel/cards.html', context={'hostel_rooms': hostel_rooms})
 
 
@@ -67,16 +68,20 @@ class Room_detail(View):
 
 class Сheck_in_student(View):
     def get(self, request):
-        form = StudentForm()
-        formr = RoomForm()
-        return render(request, 'hostel/check_in_list.html', context={'form': form, 'formr': formr})
+        form_student = StudentForm()
+        form_room = RoomForm()
+        return render(request, 'hostel/check_in_list.html', context={'form_student': form_student, 'form_room': form_room})
 
     def post(self, request):
-        bound_form = CheckInForm(request.POST)
-        if bound_form.is_valid():
-            new_student = bound_form.save()
+        bound_form_student = StudentForm(request.POST)
+        bound_form_room = RoomForm(request.POST)
+        if bound_form_student.is_valid() and bound_form_room.is_valid():
+            new_student = bound_form_student.save()
+            print(new_student)
+            print('0000000000000000000000000000')
             return redirect(new_student)
-        return render(request, 'hostel/check_in_list.html', context={'form': bound_form})
+        print('==================================')
+        return render(request, 'hostel/check_in_list.html', context={'form': bound_form_student})
 
 
 class Check_In_student_Update(View):
