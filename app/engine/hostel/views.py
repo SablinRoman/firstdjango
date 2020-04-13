@@ -81,13 +81,13 @@ class Сheck_in_student(View):
 class Check_In_student_Update(View):
     def get(self, request, id):
         student = Student.objects.get(id=id)
-        bound_form = CheckInForm(instance=student)
+        bound_form = StudentForm(instance=student)
         return render(request, 'hostel/check_in_update_list.html',
                       context={'bound_form': bound_form, 'student': student})
 
     def post(self, request, id):
         student = Student.objects.get(id=id)
-        bound_form = CheckInForm(request.POST, instance=student)
+        bound_form = StudentForm(request.POST, instance=student)
         if bound_form.is_valid():
             new_student = bound_form.save()
             return redirect(new_student)

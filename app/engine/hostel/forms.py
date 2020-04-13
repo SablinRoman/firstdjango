@@ -54,15 +54,6 @@ class StudentForm(forms.ModelForm):
         if new_room is None:
             raise ValidationError('Поле комнаты не может быть пустым!')
 
-        if Student.objects.filter(room=new_room).count() > 3:
-            raise ValidationError('Комната уже заполнена11!')
-
-        # Проверка существования комнаты не отрабатывает
-        try:
-            a = Student.objects.get(room=new_room)
-        except ObjectDoesNotExist:
-            raise ValidationError('Данной комнаты не существует!')
-
         return new_room
 
     # def clean_name(self):
