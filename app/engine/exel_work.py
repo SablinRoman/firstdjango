@@ -14,31 +14,31 @@ from hostel.models import Student  # Примечание: импорт не р�
 from hostel.models import Room  # Примечание: импорт не работает, если находться на верху
 
 
-def import_rooms(i):
-    old_room = None
+def import_rooms():
+    i = int(input("Start row ="))
+    print()
+
     print('import room')
     while sheet.cell(row=i, column=1).value is not None:
 
         if not Room.objects.filter(room_numb=sheet.cell(row=i, column=1).value):
-            print('создаем объект')
             hostel = Room()
             hostel.room_numb = sheet.cell(row=i, column=1).value
             hostel.save()
+            print('Комната', hostel.room_numb, 'импортирована')
         i += 1
 
 
+def import_students():
+    i = int(input("Start row ="))
+    print()
 
-
-
-
-
-def import_students(i):
     status_list = ['мужское', 'женское', 'пусто', 'занято']
     while sheet.cell(row=i, column=1).value is not None:
 
         student = Student()
 
-        student.room = Room.object.get(room_numb=sheet.cell(row=i, column=1).value)
+        student.room = Room.objects.get(room_numb=sheet.cell(row=i, column=1).value)
 
         if sheet.cell(row=i, column=2).value in status_list:
             student.name = ''
@@ -78,10 +78,3 @@ def import_students(i):
 
         i += 1
     print('Import completed')
-
-
-i = int(input("Start row ="))
-print()
-
-import_rooms(i)
-# import_students(i)

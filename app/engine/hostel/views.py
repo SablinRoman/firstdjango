@@ -1,6 +1,6 @@
 from .models import Student
 from .models import Room
-# from .service.stat import Statistics
+from .service.stat import Statistics
 from .forms import StudentForm
 from .forms import RoomForm
 from django.shortcuts import render
