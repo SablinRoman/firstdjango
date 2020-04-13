@@ -4,24 +4,14 @@
 <form action="{% url 'check_in_url' %}" method="post">
     {% csrf_token %}
 
-    {% for error in form_student.non_field_errors %}
+    {% for error in form.non_field_errors %}
         <div class="alert alert-danger">
             {{error}}
         </div>
     {% endfor %}
+    
 
-    {% for error in form_room.non_field_errors %}
-        <div class="alert alert-danger">
-            {{error}}
-        </div>
-    {% endfor %}
-
-    {% for field in form_room %}
-        {{ field.label }}
-        {{ field }}
-    {% endfor %}
-
-    {% for field in form_student %}
+    {% for field in form %}
         <div class="from-group">
             {{ field.label }}
             {{ field }}
