@@ -9,8 +9,15 @@
 
         {% for student in room.students.all %}
                 <p>
-                  <a class="card-text" href="{{student.get_absolute_url}}">{{ student.name }} </a>
+                    <a class="card-text" href="{{student.get_absolute_url}}">{{ student.name }} </a>
                 </p>
+
+                {%  if student.name == '' %}
+                 <p>
+                     <a class="card-text" href="{{student.get_absolute_url}}">{{ student.bed_status }} </a>
+                </p>
+                {% endif %}
+
         {% endfor %}
 
         <a href="{{student.room_url}}" class="btn btn-primary">Информация о комнате</a>
