@@ -38,18 +38,17 @@ class AddRoom(View):
         return render(request, 'hostel/add_a_room.html', context={'form': form})
 
     def post(self, request):
-        print('11111111111111111')
         bound_form = RoomForm(request.POST)
         if bound_form.is_valid():
             new_room = bound_form.save()
             print(new_room)
-            return redirect(new_room)
+            return redirect(reverse('rooms_url'))
         return render(request, 'hostel/add_a_room.html', context={'form': bound_form})
 
 
 
 def cards(request):
-    room_list = Room.objects.all()
+    room_list = Room.objects.all().order_by('room_numb')
     twin_rooms = []
     hostel_rooms = []
 
