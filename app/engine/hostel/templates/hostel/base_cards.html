@@ -1,14 +1,15 @@
 {% extends 'base_main.html' %}
 
 {% block content %}
-    {% for twin_room in hostel_rooms %}
-        <div class="row">
-            {% for room in twin_room %}
 
-                {%block cards%}
-                {% endblock %}
+{% for twin_room in hostel_rooms %}
+<div class="row">
+    {% for room in twin_room %}
 
-            {% endfor %}
-        </div>
+    {%block cards%}
+    {% endblock %}
+
     {% endfor %}
-{% endblock %}z
+</div>
+{% endfor %}
+{% endblock %}

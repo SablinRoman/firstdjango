@@ -70,3 +70,10 @@ class Room(models.Model):
 
     def __str__(self):
         return str(self.room_numb)
+
+class CardsFilter(models.Model):
+    all = models.BooleanField(blank=True, null=True)
+    men = models.BooleanField(blank=True, null=True)
+    women = models.BooleanField(blank=True, null=True)
+    free = models.BooleanField(blank=True, null=True)
+    busy = models.BooleanField(blank=True, null=True)

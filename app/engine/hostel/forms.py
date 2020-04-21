@@ -1,6 +1,7 @@
 from django import forms
 from .models import Student
 from .models import Room
+from .models import CardsFilter
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import ValidationError
 
@@ -17,7 +18,6 @@ class StudentForm(forms.ModelForm):
         widgets = {'room': forms.NumberInput(attrs={'class': 'form-control'}),
                    'name': forms.TextInput(attrs={'class': 'form-control'}),
                    'faculty': forms.TextInput(attrs={'class': 'form-control'}),
-                   # 'place_status': forms.TextInput(attrs={'class': 'form-control'}),
                    'form_studies': forms.Select(attrs={'class': 'form-control'}),
                    'group': forms.TextInput(attrs={'class': 'form-control'}),
                    'sex': forms.Select(attrs={'class': 'form-control'}),
@@ -47,7 +47,6 @@ class StudentForm(forms.ModelForm):
                     raise ValidationError('Комната уже заполнена!')
             else:
                 raise ValidationError('Комната уже заполнена!')
-
 
     def clean_room(self):
         new_room = self.cleaned_data['room']
@@ -92,3 +91,16 @@ class RoomForm(forms.ModelForm):
         model = Room
         fields = ['room_numb']
         widgets = {'room_numb': forms.NumberInput(attrs={'class': 'form-control'})}
+
+
+class FiltersForm(forms.ModelForm):
+    class Meta:
+        model = CardsFilter
+        fields = ['all', 'men', 'women', 'free', 'busy']
+
+        widgets = {'all': forms.CheckboxInput(attrs={'class': 'form-control'}),
+                   'men': forms.CheckboxInput(attrs={'class': 'form-control'}),
+                   'women': forms.CheckboxInput(attrs={'class': 'form-control'}),
+                   'free': forms.CheckboxInput(attrs={'class': 'form-control'}),
+                   'busy': forms.CheckboxInput(attrs={'class': 'form-control'}),
+                   }
