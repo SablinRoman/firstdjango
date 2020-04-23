@@ -3,6 +3,7 @@ from .models import Room
 from .service.stat import Statistics
 from .forms import StudentForm
 from .forms import RoomForm
+from .forms import FiltersForm
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import View
@@ -61,6 +62,11 @@ def cards(request):
             twin_rooms = []
     return render(request, 'hostel/cards.html', context={'hostel_rooms': hostel_rooms})
 
+
+class Cards(View):
+    def get(self, request):
+        forms = FiltersForm
+        return render(request, 'hostel/cards.html', context={'form': form})
 
 class Student_detail(View):
     def get(self, request, id):
