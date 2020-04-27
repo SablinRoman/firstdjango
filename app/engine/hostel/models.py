@@ -77,3 +77,4 @@ class CardsFilter(models.Model):
     women = models.BooleanField(blank=True, null=True)
     free = models.BooleanField(blank=True, null=True)
     busy = models.BooleanField(blank=True, null=True)
+

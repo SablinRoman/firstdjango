@@ -1,5 +1,6 @@
 from .models import Student
 from .models import Room
+from .models import CardsFilter
 from .service.stat import Statistics
 from .forms import StudentForm
 from .forms import RoomForm
@@ -47,7 +48,6 @@ class AddRoom(View):
         return render(request, 'hostel/add_a_room.html', context={'form': bound_form})
 
 
-
 def cards(request):
     room_list = Room.objects.all().order_by('room_numb')
     twin_rooms = []
@@ -65,8 +65,21 @@ def cards(request):
 
 class Cards(View):
     def get(self, request):
-        forms = FiltersForm
+        form = FiltersForm
         return render(request, 'hostel/cards.html', context={'form': form})
+
+    def post(self, request):
+        bound_form = FiltersForm(request.POST)
+        if bound_form.is_valid():
+            CardsFilter.objects.filter(id=6).update(all=bound_form['all'].data)
+            CardsFilter.objects.filter(id=6).update(men=bound_form['men'].data)
+            CardsFilter.objects.filter(id=6).update(women=bound_form['women'].data)
+            CardsFilter.objects.filter(id=6).update(free=bound_form['free'].data)
+            CardsFilter.objects.filter(id=6).update(busy=bound_form['busy'].data)
+
+            return redirect(reverse('rooms_url'))
+        return render(request, 'hostel.cards.html', context={'form': bound_form})
+
 
 class Student_detail(View):
     def get(self, request, id):
