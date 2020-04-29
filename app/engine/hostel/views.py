@@ -48,34 +48,53 @@ class AddRoom(View):
         return render(request, 'hostel/add_a_room.html', context={'form': bound_form})
 
 
-def cards(request):
-    room_list = Room.objects.all().order_by('room_numb')
-    twin_rooms = []
-    hostel_rooms = []
-
-    for index, room in enumerate(room_list):
-        if index % 2 == 0:
-            twin_rooms.append(room)
-        else:
-            twin_rooms.append(room)
-            hostel_rooms.append(twin_rooms)
-            twin_rooms = []
-    return render(request, 'hostel/cards.html', context={'hostel_rooms': hostel_rooms})
-
-
 class Cards(View):
     def get(self, request):
-        form = FiltersForm
-        return render(request, 'hostel/cards.html', context={'form': form})
+        filter = CardsFilter.objects.get(id=1)
+        bound_form = FiltersForm(instance=filter)
+        room_list = []
+
+        if filter.all is True:
+            room_list = Room.objects.all().order_by('room_numb')
+        else:
+            status_list = []
+
+            if filter.men is True:
+                status_list.append('мужское')
+            if filter.women is True:
+                status_list.append('женское')
+            if filter.free is True:
+                status_list.append('пусто')
+            if filter.busy is True:
+                status_list.append('занято')
+
+            rooms = Student.objects.filter(bed_status__in=status_list).values_list('room', flat=True).order_by('room')
+
+            for room in rooms:
+                room_list.append(Room.objects.get(room_numb=room))
+
+        twin_rooms = []
+        hostel_rooms = []
+
+        for index, room in enumerate(room_list):
+            if index % 2 == 0:
+                twin_rooms.append(room)
+            else:
+                twin_rooms.append(room)
+                hostel_rooms.append(twin_rooms)
+                twin_rooms = []
+        hostel_rooms.append(twin_rooms)
+        return render(request, 'hostel/cards.html', context={'form': bound_form,
+                                                             'hostel_rooms': hostel_rooms})
 
     def post(self, request):
         bound_form = FiltersForm(request.POST)
         if bound_form.is_valid():
-            CardsFilter.objects.filter(id=6).update(all=bound_form['all'].data)
-            CardsFilter.objects.filter(id=6).update(men=bound_form['men'].data)
-            CardsFilter.objects.filter(id=6).update(women=bound_form['women'].data)
-            CardsFilter.objects.filter(id=6).update(free=bound_form['free'].data)
-            CardsFilter.objects.filter(id=6).update(busy=bound_form['busy'].data)
+            CardsFilter.objects.filter(id=1).update(all=bound_form['all'].data)
+            CardsFilter.objects.filter(id=1).update(men=bound_form['men'].data)
+            CardsFilter.objects.filter(id=1).update(women=bound_form['women'].data)
+            CardsFilter.objects.filter(id=1).update(free=bound_form['free'].data)
+            CardsFilter.objects.filter(id=1).update(busy=bound_form['busy'].data)
 
             return redirect(reverse('rooms_url'))
         return render(request, 'hostel.cards.html', context={'form': bound_form})
