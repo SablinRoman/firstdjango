@@ -56,6 +56,7 @@ class Cards(View):
 
         if filter.all is True:
             room_list = Room.objects.all().order_by('room_numb')
+
         else:
             status_list = []
 
@@ -90,12 +91,6 @@ class Cards(View):
     def post(self, request):
         bound_form = FiltersForm(request.POST)
         if bound_form.is_valid():
-            CardsFilter.objects.filter(id=1).update(all=bound_form['all'].data)
-            CardsFilter.objects.filter(id=1).update(men=bound_form['men'].data)
-            CardsFilter.objects.filter(id=1).update(women=bound_form['women'].data)
-            CardsFilter.objects.filter(id=1).update(free=bound_form['free'].data)
-            CardsFilter.objects.filter(id=1).update(busy=bound_form['busy'].data)
-
             return redirect(reverse('rooms_url'))
         return render(request, 'hostel.cards.html', context={'form': bound_form})
 

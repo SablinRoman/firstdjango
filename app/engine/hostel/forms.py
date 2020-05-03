@@ -104,3 +104,17 @@ class FiltersForm(forms.ModelForm):
                    'free': forms.CheckboxInput(attrs={'class': 'form-control'}),
                    'busy': forms.CheckboxInput(attrs={'class': 'form-control'}),
                    }
+
+    def clean(self):
+        if self.cleaned_data['all'] is True:
+            CardsFilter.objects.filter(id=1).update(all=self.cleaned_data['all'])
+            CardsFilter.objects.filter(id=1).update(men=False)
+            CardsFilter.objects.filter(id=1).update(women=False)
+            CardsFilter.objects.filter(id=1).update(free=False)
+            CardsFilter.objects.filter(id=1).update(busy=False)
+        else:
+            CardsFilter.objects.filter(id=1).update(all=self.cleaned_data['all'])
+            CardsFilter.objects.filter(id=1).update(men=self.cleaned_data['men'])
+            CardsFilter.objects.filter(id=1).update(women=self.cleaned_data['women'])
+            CardsFilter.objects.filter(id=1).update(free=self.cleaned_data['free'])
+            CardsFilter.objects.filter(id=1).update(busy=self.cleaned_data['busy'])
