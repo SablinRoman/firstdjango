@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
+from simple_history.models import HistoricalRecords
 
 
 class Student(models.Model):
@@ -53,6 +54,8 @@ class Student(models.Model):
     room = models.ForeignKey('Room', related_name='students', on_delete=models.CASCADE,
                              to_field='room_numb', blank=True, null=True)
 
+    history = HistoricalRecords()
+
     def get_absolute_url(self):
         id = self.id
         return reverse('student_detail_url', kwargs={'id': id})
@@ -71,10 +74,10 @@ class Room(models.Model):
     def __str__(self):
         return str(self.room_numb)
 
+
 class CardsFilter(models.Model):
     all = models.BooleanField(blank=True, null=True)
     men = models.BooleanField(blank=True, null=True)
     women = models.BooleanField(blank=True, null=True)
     free = models.BooleanField(blank=True, null=True)
     busy = models.BooleanField(blank=True, null=True)
-
