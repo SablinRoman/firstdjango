@@ -56,6 +56,17 @@ class Student(models.Model):
 
     history = HistoricalRecords()
 
+    def save_without_historical_record(self, *args, **kwargs):
+        print('save method')
+        self.skip_history_when_saving = True
+        try:
+            print('try')
+            ret = self.save(*args, **kwargs)
+        finally:
+            print('finally')
+            del self.skip_history_when_saving
+        return ret
+
     def get_absolute_url(self):
         id = self.id
         return reverse('student_detail_url', kwargs={'id': id})

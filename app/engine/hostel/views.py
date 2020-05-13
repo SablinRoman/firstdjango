@@ -61,13 +61,13 @@ class Cards(View):
             status_list = []
 
             if filter.men is True:
-                status_list.append('мужское')
+                status_list.append('Мужское')
             if filter.women is True:
-                status_list.append('женское')
+                status_list.append('Женское')
             if filter.free is True:
-                status_list.append('пусто')
+                status_list.append('Пусто')
             if filter.busy is True:
-                status_list.append('занято')
+                status_list.append('Занято')
 
             rooms = Student.objects.filter(bed_status__in=status_list).values_list('room', flat=True).order_by('room')
 
@@ -101,9 +101,42 @@ class Student_detail(View):
         return render(request, 'hostel/student_detail.html', context={'room': id, 'student': student})
 
 
-def student_delete(request, id):
+def student_check_out(request, id):
     student = Student.objects.get(id=id)
+    room = student.room
     student.delete()
+
+    students_in_room = Student.objects.filter(room=student.room)
+    gender_dict = {'М': 0, 'Ж': 0}
+
+    for student in students_in_room:
+
+        try:
+            gender_dict[student.sex] += 1
+        except KeyError:
+            continue
+
+    # Ошибка с выставлением пола
+    if gender_dict['М'] > 0 and gender_dict['Ж'] > 0:
+        pass
+
+    else:
+        # Добавление одного свободного места после выселения
+        if gender_dict['М'] > 0:
+            Student.objects.create(room=room, bed_status='Мужское')
+        elif gender_dict['М'] > 0:
+            Student.objects.create(room=room, bed_status='Женское')
+
+        # После выселения все стедентов комната становится пустой
+        else:
+            for student in students_in_room:
+                student.bed_status = 'Пусто'
+                student.save()
+                Student.history.first().delete()
+            Student.objects.create(room=room, bed_status='Пусто')
+
+        Student.history.first().delete()
+
     return redirect(reverse('rooms_url'))
 
 

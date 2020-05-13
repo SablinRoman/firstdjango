@@ -9,6 +9,6 @@ urlpatterns = [
 	path('room/<str:room_det>/', Room_detail.as_view(), name='room_detail_url'),
 	path('check-in/', Сheck_in_student.as_view(), name='check_in_url'),
 	path('rooms/<str:id>/update/', Check_In_student_Update.as_view(), name='check_in_update_url'),
-	path('rooms/delete/<str:id>', student_delete, name='student_delete_url'),
+	path('rooms/delete/<str:id>', student_check_out, name='student_check_out_url'),
 
 ]
